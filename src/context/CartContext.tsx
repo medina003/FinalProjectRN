@@ -28,9 +28,7 @@ export const useCart = () => {
   return useContext(CartContext);
 };
 const CartProvider = ({ children }: CartProviderProps) => {
-  const authData = useAuth();
   const userData = useUser();
-  const currentUser = authData.getUser(authData.email!, authData.password!);
   // const currentcart = currentUser.cart;
   const addToCart = (product: Product) => {
     // currentcart.push(product);

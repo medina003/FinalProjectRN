@@ -23,18 +23,13 @@ type Props = {
 };
 
 export default function Cart({ navigation, route }: Props) {
-  //   const authData = useAuth();
-  //   const cartData = useCart();
-  //   const user = authData.getUser(authData.email!, authData.password!);
   const userData = useUser();
   const findCart = () => {
     const updatedUser = Users.find(
       (u: any, i: number) => u.email == userData.user.email
     );
-    // console.log(user.email);
     return updatedUser?.cart;
   };
-  //   const [currentCart, setCurrentCart] = useState(findCart());
   const showUserCart = () => {
     if (currentCart)
       return currentCart.map((p: any, n: number) => (
