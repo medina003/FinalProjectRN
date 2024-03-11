@@ -43,13 +43,7 @@ const CartProductCard = ({ product, navigation }: Props) => {
   const user = authData.getUser(authData.email!, authData.password!);
   const userData = useUser();
   return (
-    <Pressable
-      onPress={() =>
-        navigation.navigate("Product", {
-          product: product,
-        })
-      }
-    >
+    <Pressable>
       <View style={styles.mainContainer}>
         <ImageBackground
           source={product.img}

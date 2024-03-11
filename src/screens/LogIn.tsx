@@ -13,6 +13,7 @@ import StyledInput from "../components/Unknown/StyledInput";
 import StyledPassword from "../components/Unknown/StyledPassword";
 import StyledButton from "../components/Unknown/StyledButton";
 import AuthContext, { useAuth } from "../context/AuthContext";
+import { useUser } from "../context/SettingsContext";
 interface Props {
   route?: any;
   navigation?: any;
@@ -21,6 +22,8 @@ const Login = ({ navigation }: Props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const authData = useAuth();
+  const userData = useUser();
+  userData.user.email = email;
   const loginHandler = () => {
     if (authData.logIn(email, password)) navigation.navigate("Tab");
     else alert("Incorrect");

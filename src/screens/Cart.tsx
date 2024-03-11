@@ -28,6 +28,7 @@ export default function Cart({ navigation, route }: Props) {
     const updatedUser = Users.find(
       (u: any, i: number) => u.email == userData.user.email
     );
+    console.log(userData.user.email, "A");
     return updatedUser?.cart;
   };
   const showUserCart = () => {
@@ -42,7 +43,6 @@ export default function Cart({ navigation, route }: Props) {
   const [currentCart, setCurrentCart] = useState(findCart());
 
   useEffect(() => {
-    currentCart;
     console.log(currentCart);
   }, [currentCart]);
   return (
