@@ -39,10 +39,6 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   const signUp = (email: string, password: string, address: string) => {
-    if (Users.some((user) => user.email == email)) {
-      alert("Such email already exists");
-      return;
-    }
     const user = {
       email: email,
       password: password,

@@ -12,6 +12,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 
 import FavoriteIcon from "../../icons/FavoriteIcon";
 import BasketIcon from "../../icons/BasketIcon";
+import { useCart } from "../../context/CartContext";
 
 const windowWidth = Dimensions.get("window").width;
 
@@ -32,6 +33,7 @@ type Props = {
 
 const ProductCard = ({ product, navigation }: Props) => {
   const [isActive, setIsActive] = useState(false);
+  const cart = useCart();
 
   return (
     <Pressable
@@ -65,7 +67,10 @@ const ProductCard = ({ product, navigation }: Props) => {
             >
               <FavoriteIcon fill={isActive ? "red" : "none"} />
             </Pressable>
-            <Pressable style={styles.basketContainer}>
+            <Pressable
+              onPress={() => cart.addToCart}
+              style={styles.basketContainer}
+            >
               <BasketIcon height={80} width={80}></BasketIcon>
             </Pressable>
           </View>

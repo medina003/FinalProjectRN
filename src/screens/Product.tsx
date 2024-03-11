@@ -6,11 +6,13 @@ import {
   Text,
   ImageBackground,
   Pressable,
+  ScrollView,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import FavoriteIcon from "../icons/FavoriteIcon";
 import BasketIcon from "../icons/BasketIcon";
 import { useState } from "react";
+import { Image } from "expo-image";
 
 type Props = {
   route: any;
@@ -26,11 +28,8 @@ export default function Product({ route }: Props) {
   const product = params.product;
   return (
     <SafeAreaView style={styles.container}>
-      <ImageBackground
-        source={product.img}
-        resizeMode="cover"
-        style={styles.image}
-      >
+      <ScrollView>
+        <Image source={product.img} style={{ height: 200 }}></Image>
         <View style={styles.whiteContainer}>
           <Text style={styles.title}>{product.title}</Text>
           <View style={styles.priceContainer}>
@@ -54,8 +53,7 @@ export default function Product({ route }: Props) {
             </Pressable>
           </View>
         </View>
-        <StatusBar style="auto" />
-      </ImageBackground>
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -86,7 +84,6 @@ const styles = StyleSheet.create({
     height: windowHeight / 2,
   },
   whiteContainer: {
-    marginTop: 290,
     height: windowHeight * 0.7,
     width: windowWidth,
     backgroundColor: "#F6F5F5",

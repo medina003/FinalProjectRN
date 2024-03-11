@@ -7,6 +7,8 @@ import CategoryIcon from "../../icons/CategoryIcon";
 import Profile from "../../screens/Profile";
 import ProfileIcon from "../../icons/ProfileIcon";
 import ProfileNav from "../ProfileNavigation";
+import CartIcon from "../../icons/CartIcon";
+import Cart from "../../screens/Cart";
 // import CartIcon from "../icons/CartIcon";
 // import ProfileIcon from "../icons/ProfileIcon";
 // import ProfileNav from "./ProfileNavigation";
@@ -27,7 +29,17 @@ function BottomTabs() {
         name="CategoriesNav"
         component={CategoriesNav}
       />
-
+      <Tab.Screen
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <CartIcon color={focused ? "#7203FF" : "#9586A8"} />
+          ),
+          tabBarShowLabel: false,
+        }}
+        name="Cart"
+        component={Cart}
+      />
       <Tab.Screen
         options={{
           headerShown: false,

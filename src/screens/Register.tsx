@@ -14,6 +14,7 @@ import StyledPassword from "../components/Unknown/StyledPassword";
 import StyledButton from "../components/Unknown/StyledButton";
 import { useAuth } from "../context/AuthContext";
 import { useUser } from "../context/SettingsContext";
+import { Users } from "../data/Users";
 interface Props {
   route?: any;
   navigation?: any;
@@ -21,14 +22,25 @@ interface Props {
 const Register = ({ navigation }: Props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [address, setAddress] = useState("");
   const authData = useAuth();
   const userData = useUser();
   userData.user.deliveryAdress = address;
+  userData.user.email = email;
+
   const registerHandler = () => {
+    if (confirmPassword !== password) {
+      alert("Passwords do not match!");
+      return;
+    } else if (Users.some((user) => user.email == email)) {
+      alert("Such email already exists");
+      return;
+    }
     authData.signUp(email, password, address);
     navigation.navigate("Tab");
   };
+
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView behavior="padding" style={styles.inputs}>
@@ -43,6 +55,11 @@ const Register = ({ navigation }: Props) => {
             setData={setAddress}
           />
           <StyledPassword text={password} setPassword={setPassword} />
+          <StyledPassword
+            text={confirmPassword}
+            setPassword={setConfirmPassword}
+          />
+
           <View style={styles.bottomContainer}>
             <StyledButton text="Sign Up" onPress={registerHandler} />
             <Pressable
