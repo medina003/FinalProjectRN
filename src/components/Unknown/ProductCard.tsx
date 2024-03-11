@@ -75,22 +75,9 @@ const ProductCard = ({ product, navigation }: Props) => {
             </Pressable>
             <Pressable
               onPress={() => {
-                console.log(userData.user.email);
-                Users[0].cart.push(product);
+                // console.log(userData.user.email);
+                // Users[0].cart.push(product);
                 cart.addToCart(product);
-                // console.log(Users[0].cart[1]);
-
-                // let index;
-                // Users.forEach((u, i) => {
-                //   if (u.email === user.email) {
-                //     index = i;
-                //     return;
-                //   }
-                // });
-
-                // if (index != null) {
-                //   Users[index].cart.push(product);
-                // }
               }}
               style={styles.basketContainer}
             >
