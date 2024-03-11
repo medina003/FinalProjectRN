@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
 import { Users } from "../data/Users";
+import CartProductCard from "../components/Unknown/CartProductCard";
 type Props = {
   route: any;
   navigation: any;
@@ -25,25 +26,30 @@ export default function Cart({ navigation, route }: Props) {
   //   const authData = useAuth();
   //   const cartData = useCart();
   //   const user = authData.getUser(authData.email!, authData.password!);
-  //   const findCart = () => {
-  //     const updatedUser = Users.find(
-  //       (u: any, i: number) => u.email == user.email
-  //     );
-  //     // console.log(user.email);
-  //     return updatedUser?.cart;
-  //   };
+  const userData = useUser();
+  const findCart = () => {
+    const updatedUser = Users.find(
+      (u: any, i: number) => u.email == userData.user.email
+    );
+    // console.log(user.email);
+    return updatedUser?.cart;
+  };
   //   const [currentCart, setCurrentCart] = useState(findCart());
-  //   const showUserCart = () => {
-  //     if (currentCart)
-  //       return currentCart.map((p: any, n: number) => (
-  //         <View key={n}>
-  //           <ProductCard product={p} navigation={undefined} />
-  //         </View>
-  //       ));
-  //   };
-  //   useEffect(() => {
-  //     console.log(currentCart);
-  //   }, [currentCart]);
+  const showUserCart = () => {
+    if (currentCart)
+      return currentCart.map((p: any, n: number) => (
+        <View key={n}>
+          <CartProductCard product={p} navigation={undefined} />
+        </View>
+      ));
+  };
+
+  const [currentCart, setCurrentCart] = useState(findCart());
+
+  useEffect(() => {
+    currentCart;
+    console.log(currentCart);
+  }, [currentCart]);
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor="white" barStyle="dark-content" />
@@ -55,7 +61,7 @@ export default function Cart({ navigation, route }: Props) {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.categoriesContainer}
         >
-          {/* {showUserCart()} */}
+          {showUserCart()}
         </ScrollView>
       </View>
     </SafeAreaView>

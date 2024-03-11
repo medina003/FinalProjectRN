@@ -17,6 +17,7 @@ import { Users } from "../../data/Users";
 import { useAuth } from "../../context/AuthContext";
 import { useUser } from "../../context/SettingsContext";
 import Product from "../../screens/Product";
+import DeleteIcon from "./DeleteIcon";
 
 const windowWidth = Dimensions.get("window").width;
 
@@ -35,7 +36,7 @@ type Props = {
   navigation: any;
 };
 
-const ProductCard = ({ product, navigation }: Props) => {
+const CartProductCard = ({ product, navigation }: Props) => {
   const [isActive, setIsActive] = useState(false);
   const cart = useCart();
   const authData = useAuth();
@@ -73,28 +74,8 @@ const ProductCard = ({ product, navigation }: Props) => {
             >
               <FavoriteIcon fill={isActive ? "red" : "none"} />
             </Pressable>
-            <Pressable
-              onPress={() => {
-                console.log(userData.user.email);
-                Users[0].cart.push(product);
-                cart.addToCart(product);
-                // console.log(Users[0].cart[1]);
-
-                // let index;
-                // Users.forEach((u, i) => {
-                //   if (u.email === user.email) {
-                //     index = i;
-                //     return;
-                //   }
-                // });
-
-                // if (index != null) {
-                //   Users[index].cart.push(product);
-                // }
-              }}
-              style={styles.basketContainer}
-            >
-              <BasketIcon height={80} width={80}></BasketIcon>
+            <Pressable onPress={() => {}} style={styles.basketContainer}>
+              <DeleteIcon height={60} width={80}></DeleteIcon>
             </Pressable>
           </View>
         </View>
@@ -127,11 +108,12 @@ const styles = StyleSheet.create({
   basketContainer: {
     borderWidth: 1,
     borderColor: "lightgrey",
-    backgroundColor: "#0bce83",
+    backgroundColor: "red",
     width: 45,
     height: 40,
     borderRadius: 10,
     padding: 10,
+    marginBottom: 4,
   },
   image: {
     alignItems: "center",
@@ -174,4 +156,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProductCard;
+export default CartProductCard;

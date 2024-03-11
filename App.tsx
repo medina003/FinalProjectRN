@@ -7,13 +7,16 @@ import AuthProvider from "./src/context/AuthContext";
 import { NavigationContainer } from "@react-navigation/native";
 import RootNavigation from "./src/navigation/RootNavigation";
 import Categories from "./src/screens/Categories";
+import CartProvider from "./src/context/CartContext";
+import UserProvider from "./src/context/SettingsContext";
 export default function App() {
   return (
-    // <Categories></Categories>
     <AuthProvider>
-      <NavigationContainer>
-        <RootNavigation />
-      </NavigationContainer>
+      <CartProvider>
+        <NavigationContainer>
+          <RootNavigation />
+        </NavigationContainer>
+      </CartProvider>
     </AuthProvider>
   );
 }

@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState } from "react";
 import { Users } from "../data/Users";
 import { useAuth } from "./AuthContext";
+import { useUser } from "./SettingsContext";
 
 type Product = {
   title: string;
@@ -10,10 +11,10 @@ type Product = {
   isFavorite: boolean;
   isInCart: boolean;
   img: undefined;
-  isPiece: false;
+  isPiece: boolean;
 };
 type CartContextType = {
-  addToCart?: (product: Product) => void;
+  addToCart: (product: Product) => void;
 };
 
 export const CartContext = createContext<CartContextType>({
@@ -28,21 +29,23 @@ export const useCart = () => {
 };
 const CartProvider = ({ children }: CartProviderProps) => {
   const authData = useAuth();
+  const userData = useUser();
   const currentUser = authData.getUser(authData.email!, authData.password!);
-  const currentcart = currentUser.cart;
+  // const currentcart = currentUser.cart;
   const addToCart = (product: Product) => {
-    currentcart.push(product);
+    // currentcart.push(product);
     let index;
     Users.forEach((u, i) => {
-      if (u.email === currentUser.email) {
+      if (u.email === userData.user.email) {
         index = i;
         return;
       }
     });
 
     if (index != null) {
-      Users[index].cart = currentcart;
+      Users[index].cart.push(product);
     }
+    console.log(Users);
   };
 
   const contextValue = { addToCart };

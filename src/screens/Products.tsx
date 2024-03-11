@@ -19,6 +19,7 @@ type Props = {
 export default function Products({ navigation, route }: Props) {
   const { params } = route;
   const data = params.data.products;
+
   function renderProducts() {
     return data.map((product: any, i: number) => (
       <ProductCard product={product} key={i} navigation={navigation} />

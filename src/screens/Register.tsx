@@ -28,7 +28,6 @@ const Register = ({ navigation }: Props) => {
   const userData = useUser();
   userData.user.deliveryAdress = address;
   userData.user.email = email;
-
   const registerHandler = () => {
     if (confirmPassword !== password) {
       alert("Passwords do not match!");
