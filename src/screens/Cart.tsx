@@ -17,6 +17,7 @@ import { useAuth } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
 import { Users } from "../data/Users";
 import CartProductCard from "../components/Unknown/CartProductCard";
+import StyledButton from "../components/Unknown/StyledButton";
 type Props = {
   route: any;
   navigation: any;
@@ -24,6 +25,7 @@ type Props = {
 
 export default function Cart({ navigation, route }: Props) {
   const userData = useUser();
+  const cartData = useCart();
   const { cart } = useCart();
 
   // const { cart } = useCart();
@@ -62,6 +64,12 @@ export default function Cart({ navigation, route }: Props) {
         >
           {showUserCart()}
         </ScrollView>
+        <StyledButton
+          text="Checkout"
+          onPress={() => {
+            cartData.checkout();
+          }}
+        />
       </View>
     </SafeAreaView>
   );

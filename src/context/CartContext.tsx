@@ -16,12 +16,14 @@ type CartContextType = {
   cart: any[];
   addToCart: (product: Product) => void;
   removeFromCart: (index: number) => void;
+  checkout: () => void;
 };
 
 export const CartContext = createContext<CartContextType>({
   cart: [],
   addToCart: (product: Product) => {},
   removeFromCart: (index: number) => {},
+  checkout: () => {},
 });
 
 interface CartProviderProps {
@@ -51,8 +53,15 @@ const CartProvider = ({ children }: CartProviderProps) => {
       Users[userIndex].cart = updatedCart;
     }
   };
+  const checkout = () => {
+    const userIndex = Users.findIndex((u) => u.email === authData.email);
+    if (userIndex !== -1) {
+      Users[userIndex].cart = [];
+      setCart([]);
+    }
+  };
 
-  const contextValue = { cart, addToCart, removeFromCart };
+  const contextValue = { cart, addToCart, removeFromCart, checkout };
   return (
     <CartContext.Provider value={contextValue}>{children}</CartContext.Provider>
   );
