@@ -22,11 +22,11 @@ const Login = ({ navigation }: Props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const authData = useAuth();
-  const userData = useUser();
-  userData.user.email = email;
+  // const userData = useUser();
+  // userData.user.email = email;
   const loginHandler = () => {
     if (authData.logIn(email, password)) navigation.navigate("Tab");
-    else alert("Incorrect");
+    else alert("Incorrect data");
   };
   return (
     <SafeAreaView style={styles.container}>

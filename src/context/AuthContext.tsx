@@ -90,6 +90,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       return false;
     }
     Users.push(user);
+    setEmail(email);
+    setPassword(password);
     console.log(Users);
     return true;
   };

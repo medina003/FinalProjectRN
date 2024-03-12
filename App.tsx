@@ -12,11 +12,13 @@ import UserProvider from "./src/context/SettingsContext";
 export default function App() {
   return (
     <AuthProvider>
-      <CartProvider>
-        <NavigationContainer>
-          <RootNavigation />
-        </NavigationContainer>
-      </CartProvider>
+      <UserProvider>
+        <CartProvider>
+          <NavigationContainer>
+            <RootNavigation />
+          </NavigationContainer>
+        </CartProvider>
+      </UserProvider>
     </AuthProvider>
   );
 }

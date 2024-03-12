@@ -19,22 +19,12 @@ type UserType = {
   nonContactDelivery?: boolean;
   favorites?: any[];
   cart?: any[];
-  changeCard?: (
-    email: string,
-    hexCode: string,
-    date: string,
-    cvv: string
-  ) => any;
+  changeCard?: (hexCode: string, date: string, cvv: string) => any;
 };
 
 type UserContextType = {
   user: UserType;
-  changeCard: (
-    email: string,
-    hexCode: string,
-    date: string,
-    cvv: string
-  ) => any;
+  changeCard: (hexCode: string, date: string, cvv: string) => any;
 };
 
 export const UserContext = createContext<UserContextType>({
@@ -53,7 +43,7 @@ export const UserContext = createContext<UserContextType>({
     favorites: [],
     cart: [],
   },
-  changeCard: (email: string, hexCode: string, date: string, cvv: string) => {},
+  changeCard: (hexCode: string, date: string, cvv: string) => {},
 });
 
 interface UserProviderProps {
@@ -73,12 +63,13 @@ const UserProvider = ({ children }: UserProviderProps) => {
     user.paymentMethod.hexCode = hexCode;
     user.paymentMethod.date = date;
     user.paymentMethod.cvv = cvv;
-    let index = null;
-    Users.forEach((u, i) =>
-      u.email == user.email ? (index = i) : (index = null)
-    );
+    const index = Users.findIndex((u) => u.email === user.email);
 
-    if (index != null) Users[index] = user;
+    if (index !== -1) {
+      Users[index] = user;
+    }
+
+    console.log(Users);
   };
 
   const contextValue = { user, changeCard };

@@ -25,9 +25,9 @@ const Register = ({ navigation }: Props) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [address, setAddress] = useState("");
   const authData = useAuth();
-  const userData = useUser();
-  userData.user.deliveryAdress = address;
-  userData.user.email = email;
+  // const userData = useUser();
+  // userData.user.deliveryAdress = address;
+  // userData.user.email = email;
   const registerHandler = () => {
     if (authData.signUp(email, password, confirmPassword, address))
       navigation.navigate("Tab");

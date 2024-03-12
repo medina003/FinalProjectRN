@@ -34,10 +34,12 @@ export const useCart = () => {
 const CartProvider = ({ children }: CartProviderProps) => {
   const [cart, setCart] = useState<Product[]>([]);
   const userData = useUser();
-  const user = Users.find((user) => user.email == userData.user.email);
+  const authData = useAuth();
+  // userData.user.email = "jh";
+  console.log(authData.email);
+  const user = Users.find((user) => user.email == "k");
   const addToCart = (product: Product) => {
-    const userIndex = Users.findIndex((u) => u.email === userData.user.email);
-
+    const userIndex = Users.findIndex((u) => u.email === authData.email);
     if (userIndex !== -1) {
       Users[userIndex].cart.push(product);
       const updatedCart = [...cart, product];
@@ -45,7 +47,7 @@ const CartProvider = ({ children }: CartProviderProps) => {
     }
   };
   const removeFromCart = (index: number) => {
-    const userIndex = Users.findIndex((u) => u.email === userData.user.email);
+    const userIndex = Users.findIndex((u) => u.email === authData.email);
     if (userIndex !== -1) {
       console.log(index);
       const updatedCart = [...cart];
