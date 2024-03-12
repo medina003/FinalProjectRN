@@ -42,8 +42,9 @@ const CardChange = ({ navigation }: Props) => {
         <View style={styles.container}>
           <Pressable
             onPress={() => {
-              user.changeCard(cardNumber, cardDate, cardCVV);
-              navigation.navigate("Profile");
+              if (user.changeCard(cardNumber, cardDate, cardCVV)) {
+                navigation.navigate("Profile");
+              }
             }}
           >
             <View style={styles.btnContainer}>

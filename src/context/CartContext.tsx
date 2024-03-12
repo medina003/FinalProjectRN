@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import { Users } from "../data/Users";
 import { useAuth } from "./AuthContext";
-import { useUser } from "./SettingsContext";
 
 type Product = {
   title: string;
@@ -33,11 +32,7 @@ export const useCart = () => {
 };
 const CartProvider = ({ children }: CartProviderProps) => {
   const [cart, setCart] = useState<Product[]>([]);
-  const userData = useUser();
   const authData = useAuth();
-  // userData.user.email = "jh";
-  console.log(authData.email);
-  const user = Users.find((user) => user.email == "k");
   const addToCart = (product: Product) => {
     const userIndex = Users.findIndex((u) => u.email === authData.email);
     if (userIndex !== -1) {

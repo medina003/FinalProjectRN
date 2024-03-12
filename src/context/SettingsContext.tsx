@@ -19,12 +19,12 @@ type UserType = {
   nonContactDelivery?: boolean;
   favorites?: any[];
   cart?: any[];
-  changeCard?: (hexCode: string, date: string, cvv: string) => any;
+  changeCard?: (hexCode: string, date: string, cvv: string) => boolean;
 };
 
 type UserContextType = {
   user: UserType;
-  changeCard: (hexCode: string, date: string, cvv: string) => any;
+  changeCard: (hexCode: string, date: string, cvv: string) => boolean;
 };
 
 export const UserContext = createContext<UserContextType>({
@@ -43,7 +43,7 @@ export const UserContext = createContext<UserContextType>({
     favorites: [],
     cart: [],
   },
-  changeCard: (hexCode: string, date: string, cvv: string) => {},
+  changeCard: (hexCode: string, date: string, cvv: string) => false,
 });
 
 interface UserProviderProps {
@@ -60,6 +60,20 @@ const UserProvider = ({ children }: UserProviderProps) => {
   const [date, setDate] = useState("");
   const [cvv, setCvv] = useState("");
   const changeCard = (hexCode: string, date: string, cvv: string) => {
+    const cardNumberPattern = /^\d{16}$/;
+    const expiryDatePattern = /^(0[1-9]|1[0-2])\/\d{2}$/;
+    const cvvPattern = /^\d{3,4}$/;
+
+    if (!cardNumberPattern.test(hexCode)) {
+      alert("Invalid card number");
+      return false;
+    } else if (!expiryDatePattern.test(date)) {
+      alert("Invalid expiry date");
+      return false;
+    } else if (!cvvPattern.test(cvv)) {
+      alert("Invalid CVV");
+      return false;
+    }
     user.paymentMethod.hexCode = hexCode;
     user.paymentMethod.date = date;
     user.paymentMethod.cvv = cvv;
@@ -68,8 +82,9 @@ const UserProvider = ({ children }: UserProviderProps) => {
     if (index !== -1) {
       Users[index] = user;
     }
-
     console.log(Users);
+
+    return true;
   };
 
   const contextValue = { user, changeCard };
