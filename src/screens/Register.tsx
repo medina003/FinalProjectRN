@@ -29,15 +29,8 @@ const Register = ({ navigation }: Props) => {
   userData.user.deliveryAdress = address;
   userData.user.email = email;
   const registerHandler = () => {
-    if (confirmPassword !== password) {
-      alert("Passwords do not match!");
-      return;
-    } else if (Users.some((user) => user.email == email)) {
-      alert("Such email already exists");
-      return;
-    }
-    authData.signUp(email, password, address);
-    navigation.navigate("Tab");
+    if (authData.signUp(email, password, confirmPassword, address))
+      navigation.navigate("Tab");
   };
 
   return (
@@ -53,8 +46,13 @@ const Register = ({ navigation }: Props) => {
             data={address}
             setData={setAddress}
           />
-          <StyledPassword text={password} setPassword={setPassword} />
           <StyledPassword
+            placeholder="Password"
+            text={password}
+            setPassword={setPassword}
+          />
+          <StyledPassword
+            placeholder="Confirm password"
             text={confirmPassword}
             setPassword={setConfirmPassword}
           />

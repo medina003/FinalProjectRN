@@ -35,8 +35,6 @@ const CartProvider = ({ children }: CartProviderProps) => {
   const [cart, setCart] = useState<Product[]>([]);
   const userData = useUser();
   const user = Users.find((user) => user.email == userData.user.email);
-  const usercart = user?.cart;
-  // const currentcart = currentUser.cart;
   const addToCart = (product: Product) => {
     const userIndex = Users.findIndex((u) => u.email === userData.user.email);
 
@@ -44,7 +42,6 @@ const CartProvider = ({ children }: CartProviderProps) => {
       Users[userIndex].cart.push(product);
       const updatedCart = [...cart, product];
       setCart(updatedCart);
-      console.log(updatedCart);
     }
   };
   const removeFromCart = (index: number) => {
@@ -53,9 +50,8 @@ const CartProvider = ({ children }: CartProviderProps) => {
       console.log(index);
       const updatedCart = [...cart];
       updatedCart.splice(index, 1);
-      Users[userIndex].cart = updatedCart;
       setCart(updatedCart);
-      console.log(Users);
+      Users[userIndex].cart = updatedCart;
     }
   };
 

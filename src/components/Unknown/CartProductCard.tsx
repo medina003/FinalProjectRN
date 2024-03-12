@@ -75,7 +75,7 @@ const CartProductCard = ({ product, navigation, index }: Props) => {
               }}
               style={styles.basketContainer}
             >
-              <DeleteIcon height={60} width={80}></DeleteIcon>
+              <DeleteIcon fill="grey" height={50} width={80}></DeleteIcon>
             </Pressable>
           </View>
         </View>
@@ -113,7 +113,6 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 10,
     padding: 10,
-    marginBottom: 4,
   },
   image: {
     alignItems: "center",

@@ -11,17 +11,18 @@ import {
 type Props = {
   text: string;
   setPassword: (text: string) => void;
+  placeholder: string;
 };
 const width = Dimensions.get("window").width;
 
-const StyledPassword = ({ text, setPassword }: Props) => {
+const StyledPassword = ({ text, setPassword, placeholder }: Props) => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.heading}
-        placeholder="Password"
+        placeholder={placeholder}
         secureTextEntry={!showPassword}
         value={text}
         onChangeText={(text) => setPassword(text)}

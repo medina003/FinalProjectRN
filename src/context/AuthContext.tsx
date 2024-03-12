@@ -1,12 +1,18 @@
 import React, { createContext, useContext, useState } from "react";
 import { Users } from "../data/Users";
+import { Alert } from "react-native";
 
 type AuthContextType = {
   email: string | null;
   password: string | null;
   address: string | null;
   logIn: (email: string, password: string) => boolean;
-  signUp: (email: string, password: string, address: string) => void;
+  signUp: (
+    email: string,
+    password: string,
+    confirmPassword: string,
+    address: string
+  ) => boolean;
   getUser: (email: string, password: string) => any;
 };
 
@@ -15,7 +21,12 @@ export const AuthContext = createContext<AuthContextType>({
   password: null,
   address: null,
   logIn: (email: string, password: string) => false,
-  signUp: (email: string, password: string, address: string) => {},
+  signUp: (
+    email: string,
+    password: string,
+    confirmPassword: string,
+    address: string
+  ) => false,
   getUser: (email: string, password: string) => {},
 });
 
@@ -38,7 +49,12 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     );
   };
 
-  const signUp = (email: string, password: string, address: string) => {
+  const signUp = (
+    email: string,
+    password: string,
+    confirmPassword: string,
+    address: string
+  ) => {
     const user = {
       email: email,
       password: password,
@@ -54,8 +70,28 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       favorites: [],
       cart: [],
     };
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordPattern =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (Users.some((user) => user.email == email)) {
+      alert("Such email already exists");
+      return false;
+    } else if (!emailPattern.test(email)) {
+      Alert.alert("Invalid Email", "Please enter a valid email address");
+      return false;
+    } else if (!passwordPattern.test(password)) {
+      Alert.alert(
+        "Weak Password",
+        "Password must contain at least 8 characters, including uppercase, lowercase, numbers, and special characters"
+      );
+      return false;
+    } else if (confirmPassword !== password) {
+      alert("Passwords do not match!");
+      return false;
+    }
     Users.push(user);
     console.log(Users);
+    return true;
   };
   const getUser = (email: string, password: string) => {
     const user = Users.find(

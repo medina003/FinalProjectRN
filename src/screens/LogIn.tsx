@@ -36,7 +36,11 @@ const Login = ({ navigation }: Props) => {
         </View>
         <View style={styles.centerContainer}>
           <StyledInput placeholder="Email" data={email} setData={setEmail} />
-          <StyledPassword text={password} setPassword={setPassword} />
+          <StyledPassword
+            placeholder="Password"
+            text={password}
+            setPassword={setPassword}
+          />
           <View style={styles.bottomContainer}>
             <StyledButton text="Log In" onPress={loginHandler} />
             <Pressable
