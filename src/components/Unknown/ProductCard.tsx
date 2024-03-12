@@ -75,8 +75,6 @@ const ProductCard = ({ product, navigation }: Props) => {
             </Pressable>
             <Pressable
               onPress={() => {
-                // console.log(userData.user.email);
-                // Users[0].cart.push(product);
                 cart.addToCart(product);
               }}
               style={styles.basketContainer}

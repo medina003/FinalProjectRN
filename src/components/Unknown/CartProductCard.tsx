@@ -34,9 +34,10 @@ type Product = {
 type Props = {
   product: Product;
   navigation: any;
+  index: number;
 };
 
-const CartProductCard = ({ product, navigation }: Props) => {
+const CartProductCard = ({ product, navigation, index }: Props) => {
   const [isActive, setIsActive] = useState(false);
   const cart = useCart();
   const authData = useAuth();
@@ -68,7 +69,12 @@ const CartProductCard = ({ product, navigation }: Props) => {
             >
               <FavoriteIcon fill={isActive ? "red" : "none"} />
             </Pressable>
-            <Pressable onPress={() => {}} style={styles.basketContainer}>
+            <Pressable
+              onPress={() => {
+                cart.removeFromCart(index);
+              }}
+              style={styles.basketContainer}
+            >
               <DeleteIcon height={60} width={80}></DeleteIcon>
             </Pressable>
           </View>

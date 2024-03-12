@@ -13,6 +13,7 @@ import FavoriteIcon from "../icons/FavoriteIcon";
 import BasketIcon from "../icons/BasketIcon";
 import { useState } from "react";
 import { Image } from "expo-image";
+import { useCart } from "../context/CartContext";
 
 type Props = {
   route: any;
@@ -23,6 +24,7 @@ const windowHeight = Dimensions.get("window").height;
 
 export default function Product({ route }: Props) {
   const [isActive, setIsActive] = useState(false);
+  const cart = useCart();
 
   const { params } = route;
   const product = params.product;
@@ -48,7 +50,12 @@ export default function Product({ route }: Props) {
             >
               <FavoriteIcon fill={isActive ? "red" : "none"} />
             </Pressable>
-            <Pressable style={styles.basketContainer}>
+            <Pressable
+              onPress={() => {
+                cart.addToCart(product);
+              }}
+              style={styles.basketContainer}
+            >
               <BasketIcon height={80} width={80}></BasketIcon>
             </Pressable>
           </View>

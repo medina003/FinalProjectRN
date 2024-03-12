@@ -24,6 +24,9 @@ type Props = {
 
 export default function Cart({ navigation, route }: Props) {
   const userData = useUser();
+  const { cart } = useCart();
+
+  // const { cart } = useCart();
   const findCart = () => {
     const updatedUser = Users.find(
       (u: any, i: number) => u.email == userData.user.email
@@ -35,7 +38,7 @@ export default function Cart({ navigation, route }: Props) {
     if (currentCart)
       return currentCart.map((p: any, n: number) => (
         <View key={n}>
-          <CartProductCard product={p} navigation={undefined} />
+          <CartProductCard product={p} index={n} navigation={undefined} />
         </View>
       ));
   };
@@ -43,8 +46,9 @@ export default function Cart({ navigation, route }: Props) {
   const [currentCart, setCurrentCart] = useState(findCart());
 
   useEffect(() => {
-    console.log(currentCart);
-  }, [currentCart]);
+    setCurrentCart(findCart());
+    console.log("a");
+  }, [cart]);
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor="white" barStyle="dark-content" />

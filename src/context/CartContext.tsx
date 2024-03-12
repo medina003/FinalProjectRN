@@ -14,11 +14,15 @@ type Product = {
   isPiece: boolean;
 };
 type CartContextType = {
+  cart: any[];
   addToCart: (product: Product) => void;
+  removeFromCart: (index: number) => void;
 };
 
 export const CartContext = createContext<CartContextType>({
+  cart: [],
   addToCart: (product: Product) => {},
+  removeFromCart: (index: number) => {},
 });
 
 interface CartProviderProps {
@@ -28,25 +32,34 @@ export const useCart = () => {
   return useContext(CartContext);
 };
 const CartProvider = ({ children }: CartProviderProps) => {
+  const [cart, setCart] = useState<Product[]>([]);
   const userData = useUser();
+  const user = Users.find((user) => user.email == userData.user.email);
+  const usercart = user?.cart;
   // const currentcart = currentUser.cart;
   const addToCart = (product: Product) => {
-    // currentcart.push(product);
-    let index;
-    Users.forEach((u, i) => {
-      if (u.email === userData.user.email) {
-        index = i;
-        return;
-      }
-    });
+    const userIndex = Users.findIndex((u) => u.email === userData.user.email);
 
-    if (index != null) {
-      Users[index].cart.push(product);
+    if (userIndex !== -1) {
+      Users[userIndex].cart.push(product);
+      const updatedCart = [...cart, product];
+      setCart(updatedCart);
+      console.log(updatedCart);
     }
-    console.log(Users);
+  };
+  const removeFromCart = (index: number) => {
+    const userIndex = Users.findIndex((u) => u.email === userData.user.email);
+    if (userIndex !== -1) {
+      console.log(index);
+      const updatedCart = [...cart];
+      updatedCart.splice(index, 1);
+      Users[userIndex].cart = updatedCart;
+      setCart(updatedCart);
+      console.log(Users);
+    }
   };
 
-  const contextValue = { addToCart };
+  const contextValue = { cart, addToCart, removeFromCart };
   return (
     <CartContext.Provider value={contextValue}>{children}</CartContext.Provider>
   );
